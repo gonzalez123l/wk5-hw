@@ -32,27 +32,28 @@ SELECT COUNT(DISTINCT district)
 FROM address;
 
 
---7. What film has the most actors in it? (use film_actor table and get film_id)
-SELECT film_id, MAX(amount)
+--7. What film has the most actors in it? (use film_actor table and get film_id) = 508 with 15 actors
+SELECT film_id, count(actor_id)
 FROM film_actor 
 GROUP BY film_id  
-ORDER BY MAX(amount) DESC;
+ORDER BY count DESC;
 
 
 
---8. From store_id 1, how many customers have a last name ending with ‘es’? (use customer table) = 30
+--8. From store_id 1, how many customers have a last name ending with ‘es’? (use customer table) = 21
 SELECT last_name 
 FROM customer
-WHERE last_name like '%es%'
+WHERE last_name like '%es';
 
 
---9. How many payment amounts (4.99, 5.99, etc.) had a number of rentals above 250 for customers
+--9. How many payment amounts (4.99, 5.99, etc.) had a number of rentals above 250 for customers = 3
 --with ids between 380 and 430? (use group by and having > 250)
-SELECT *
-FROM payment 
-GROUP BY customer_id >380 <430
-ORDER BY amount DESC;
-HAVING amount > 250;
+SELECT amount, count(*)
+FROM payment
+WHERE customer_id BETWEEN 380 AND 430
+GROUP BY amount
+HAVING count(*) > 250
+
 
 
 
